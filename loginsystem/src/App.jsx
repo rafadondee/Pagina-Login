@@ -1,56 +1,26 @@
-// src/App.jsx
-import React, { useState } from 'react';
-import axios from 'axios';
-
-const logar = async (username, password) => {
- try {
- const response = await axios.post('http://localhost:8090/api/login', {
- username: username,
- password: password,
- });
- return response.data;
- } catch (error) {
- throw error;
- }
-};
+// Importa o módulo React do pacote react
+import React from 'react';
+// Importa módulos específicos do pacote react-router-dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// Importa o componente Home da pasta 'pages'
+import Home from './pages/home';
+// Importa o componente Sobre da pasta 'pages'
+import Login from './pages/login';
+import Cadastro from './pages/cadastro';
+// Define a função do componente principal App
 function App() {
- const [username, setUsername] = useState('');
- const [password, setPassword] = useState('');
- const handleLogin = async () => {
- try {
- const response = await logar(username, password);
- alert(response);
- } catch (error) {
- console.error('Erro ao se logar:', error);
- }
- };
- return (
- <div>
- <h1>TrêsáNo login SyStem</h1>
- <form>
- <label>
- Usuário:
- <input
- type="text"
- value={username}
- onChange={(e) => setUsername(e.target.value)}
- />
- </label>
- <br />
- <label>
- Senha:
- <input
- type="password"
- value={password}
- onChange={(e) => setPassword(e.target.value)}
- />
- </label>
- <br />
- <button type="button" onClick={handleLogin}>
- Login
- </button>
- </form>
- </div>
- );
+  // Retorna a estrutura de roteamento usando o BrowserRouter
+  return (
+    <Router>
+      {/* Define as rotas usando o componente Routes */}
+      <Routes>
+        {/* Rota para a página Home com o componente associado */}
+        <Route path="/" element={<Login />} />        
+        <Route path="/home" element={<Home />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+      </Routes>
+    </Router>
+  );
 }
+// Exporta o componente App como padrão
 export default App;
